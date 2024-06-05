@@ -1,0 +1,181 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Main Form</title>
+</head>
+<body>
+    <form id="mainForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department"><br>
+        <label for="name">Age:</label>
+        <input type="text" id="age" name="age"><br>
+        <label for="name">Gender</label>
+        <input type="text" id="gender" name="gender"><br>
+        <label for="excelFile">Upload Excel File:</label>
+        <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loggedInId = localStorage.getItem('loggedInId');
+            if (loggedInId) {
+                // Fetch corresponding data based on logged-in ID
+                fetchDataFromExcel(loggedInId);
+            } else {
+                // Redirect to login page if not logged in
+                window.location.href = "login.html";
+            }
+        });
+
+        function fetchDataFromExcel(id) {
+            const file = document.getElementById("excelFile").files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+                const matchedData = excelData.find(item => item.id == id);
+                if (matchedData) {
+                    console.log("Matching data found:", matchedData);
+                    document.getElementById('name').value = matchedData.Name; // Set Name field to corresponding name
+                    document.getElementById('department').value = matchedData.Department; // Fill Department field
+                    document.getElementById('age').value = matchedData.Age;
+                    document.getElementById('gender').value = matchedData.Gender;
+                } else {
+                    console.log("No matching data found for ID:", id);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        document.getElementById("mainForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            const loggedInId = localStorage.getItem('loggedInId');
+            if (loggedInId) {
+                // Fetch corresponding data based on logged-in ID
+                fetchDataFromExcel(loggedInId);
+            } else {
+                console.log("Error: Logged-in ID not found.");
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="file"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="mainForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department"><br>
+        <label for="name">Age:</label>
+        <input type="text" id="age" name="age"><br>
+        <label for="name">Gender:</label>
+        <input type="text" id="gender" name="gender"><br>
+        <label for="name">Country:</label>
+        <input type="text" id="country" name="country"><br> 
+        <label for="excelFile">Upload Excel File:</label>
+        <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loggedInId = localStorage.getItem('loggedInId');
+            if (loggedInId) {
+                // Fetch corresponding data based on logged-in ID
+                fetchDataFromExcel(loggedInId);
+            } else {
+                // Redirect to login page if not logged in
+                window.location.href = "login.html";
+            }
+        });
+
+        function fetchDataFromExcel(id) {
+            const file = document.getElementById("excelFile").files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+                const matchedData = excelData.find(item => item.id == id);
+                if (matchedData) {
+                    console.log("Matching data found:", matchedData);
+                    document.getElementById('name').value = matchedData.Name; // Set Name field to corresponding name
+                    document.getElementById('department').value = matchedData.Department; // Fill Department field
+                    document.getElementById('age').value = matchedData.Age;
+                    document.getElementById('gender').value = matchedData.Gender;
+                    document.getElementById('country').value = matchedData.Country;
+                } else {
+                    console.log("No matching data found for ID:", id);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        document.getElementById("mainForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            const loggedInId = localStorage.getItem('loggedInId');
+            if (loggedInId) {
+                // Fetch corresponding data based on logged-in ID
+                fetchDataFromExcel(loggedInId);
+            } else {
+                console.log("Error: Logged-in ID not found.");
+            }
+        });
+    </script>
+</body>
+</html>
